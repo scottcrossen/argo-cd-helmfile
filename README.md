@@ -37,9 +37,10 @@ Support for `helmfile` with `argo-cd`.
     image: alpine:3.8
     command: [sh, -c]
     args:
-      - wget -qO /custom-tools/argo-cd-helmfile.sh https://raw.githubusercontent.com/travisghansen/argo-cd-helmfile/master/src/argo-cd-helmfile.sh &&
+      - |
+        wget -qO /custom-tools/argo-cd-helmfile.sh https://raw.githubusercontent.com/scottcrossen/argo-cd-helmfile/master/src/argo-cd-helmfile.sh &&
         chmod +x /custom-tools/argo-cd-helmfile.sh &&
-        wget -qO /custom-tools/helmfile https://github.com/roboll/helmfile/releases/download/v0.98.2/helmfile_linux_amd64 &&
+        wget -O - https://api.github.com/repos/roboll/helmfile/releases/latest | grep "browser_download_url.*$(uname -s | tr '[:upper:]' '[:lower:]')_amd64" | cut -d : -f 2,3 | tr -d "\" " | xargs wget -qO /custom-tools/helmfile &&
         chmod +x /custom-tools/helmfile
     volumeMounts:
       - mountPath: /custom-tools

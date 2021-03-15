@@ -109,7 +109,8 @@ else
   else
     LOCAL_HELMFILE_BINARY="/tmp/__${SCRIPT_NAME}__/bin/helmfile"
     if [[ ! -x "${LOCAL_HELMFILE_BINARY}" ]]; then
-      wget -O "${LOCAL_HELMFILE_BINARY}" "https://github.com/roboll/helmfile/releases/download/v0.98.2/helmfile_linux_amd64"
+      HELMFILE_DOWNLOAD_URL="$(wget -O - https://api.github.com/repos/roboll/helmfile/releases/latest | grep "browser_download_url.*$(uname -s | tr '[:upper:]' '[:lower:]')_amd64" | cut -d : -f 2,3 | tr -d "\" ")"
+      wget -O "$LOCAL_HELMFILE_BINARY" "$HELMFILE_DOWNLOAD_URL"
       chmod +x "${LOCAL_HELMFILE_BINARY}"
     fi
     helmfile="${LOCAL_HELMFILE_BINARY}"
