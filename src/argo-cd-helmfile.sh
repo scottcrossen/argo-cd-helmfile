@@ -93,7 +93,7 @@ for HELM_PLUGIN_URL in ${HELM_PLUGIN_URLS[@]}; do
       echo "$output"
       exit 1;
   fi
-  output1="$(helm2 init --client-only || true ; helm plugin add "$HELM_PLUGIN_URL" || true)"
+  output1="$(helm2 init --client-only || true ; helm2 plugin install "$HELM_PLUGIN_URL" || true)"
   if [ $? -ne 0 ]; then
       echo ":x: Failed installing helm2 plugin"
       echo "$output1"
