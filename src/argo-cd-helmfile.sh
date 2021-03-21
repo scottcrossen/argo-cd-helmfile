@@ -86,7 +86,7 @@ else
   helm="$(which helm)"
 fi
 
-for HELM_PLUGIN_URL in "${HELM_PLUGIN_URLS[@]}"; do
+for HELM_PLUGIN_URL in ${HELM_PLUGIN_URLS[@]}; do
   output="$(helm plugin add "$HELM_PLUGIN_URL" || true)"
   if [ $? -ne 0 ]; then
       echo ":x: Failed installing plugin"
